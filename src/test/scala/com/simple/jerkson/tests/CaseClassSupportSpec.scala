@@ -23,7 +23,7 @@ class CaseClassSupportSpec extends Spec {
     @Test def `is not parsable from an incomplete JSON object` = {
       evaluating {
         parse[CaseClass]("""{"id":1}""")
-      }.must(throwA[ParsingException]("""Invalid JSON. Needed [id, name], but found [id]."""))
+      }.must(throwA[ParsingException]("""Invalid JSON. Missing fields [name]; needed [id, name], found [id]."""))
     }
   }
 
@@ -39,7 +39,7 @@ class CaseClassSupportSpec extends Spec {
     @Test def `is not parsable from an incomplete JSON object` = {
       evaluating {
         parse[CaseClassWithLazyVal]("""{}""")
-      }.must(throwA[ParsingException]("""Invalid JSON. Needed [id], but found []."""))
+      }.must(throwA[ParsingException]("""Invalid JSON. Missing fields [id]; needed [id], found []."""))
     }
   }
 
@@ -57,11 +57,11 @@ class CaseClassSupportSpec extends Spec {
     @Test def `is not parsable from an incomplete JSON object` = {
       evaluating {
         parse[CaseClassWithIgnoredField]("""{}""")
-      }.must(throwA[ParsingException]("""Invalid JSON. Needed [id], but found []."""))
+      }.must(throwA[ParsingException]("""Invalid JSON. Missing fields [id]; needed [id], found []."""))
 
       evaluating {
         parse[CaseClassWithIgnoredFields]("""{}""")
-      }.must(throwA[ParsingException]("""Invalid JSON. Needed [id], but found []."""))
+      }.must(throwA[ParsingException]("""Invalid JSON. Missing fields [id]; needed [id], found []."""))
     }
   }
 
@@ -77,7 +77,7 @@ class CaseClassSupportSpec extends Spec {
     @Test def `is not parsable from an incomplete JSON object` = {
       evaluating {
         parse[CaseClassWithTransientField]("""{}""")
-      }.must(throwA[ParsingException]("""Invalid JSON. Needed [id], but found []."""))
+      }.must(throwA[ParsingException]("""Invalid JSON. Missing fields [id]; needed [id], found []."""))
     }
   }
 
@@ -217,7 +217,7 @@ class CaseClassSupportSpec extends Spec {
     @Test def `throws errors with the snake-cased field names present` = {
       evaluating {
         parse[CaseClassWithSnakeCase]("""{"one_thing":"yes"}""")
-      }.must(throwA[ParsingException]("Invalid JSON. Needed [one_thing, two_thing], but found [one_thing]."))
+      }.must(throwA[ParsingException]("Invalid JSON. Missing fields [two_thing]; needed [one_thing, two_thing], found [one_thing]."))
     }
   }
 
@@ -233,7 +233,7 @@ class CaseClassSupportSpec extends Spec {
     @Test def `throws errors with the snake-cased field names present` = {
       evaluating {
         parse[CaseClassWithCodaSnakeCase]("""{"one_thing":"yes"}""")
-      }.must(throwA[ParsingException]("Invalid JSON. Needed [one_thing, two_thing], but found [one_thing]."))
+      }.must(throwA[ParsingException]("Invalid JSON. Missing fields [two_thing]; needed [one_thing, two_thing], found [one_thing]."))
     }
   }
 

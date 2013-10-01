@@ -54,7 +54,7 @@ class EdgeCaseSpec extends Spec {
 
       evaluating {
         parse[CaseClass]("{\"woo\": 1}")
-      }.must(throwA[ParsingException]("Invalid JSON. Needed [id, name], but found [woo]."))
+      }.must(throwA[ParsingException]("Invalid JSON. Missing fields [id, name]; needed [id, name], found [woo]."))
     }
   }
 

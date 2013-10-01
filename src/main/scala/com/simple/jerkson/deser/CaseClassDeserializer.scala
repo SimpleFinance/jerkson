@@ -79,7 +79,8 @@ class CaseClassDeserializer(config: DeserializationConfig,
       case _: NullNode => "[]" // this is what Jackson deserializes the inside of an empty object to
       case unknown => "a non-object"
     }
-    "Invalid JSON. Needed %s, but found %s.".format(names, existing)
+    "Invalid JSON. Missing fields %s; needed %s, found %s. (Missing: %s)".format(
+      names.toSet - existing.toSet, names, existing)
   }
 
   override def isCachable = true
